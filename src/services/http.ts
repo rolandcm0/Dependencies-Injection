@@ -1,13 +1,17 @@
-import { Logger } from './logger';
+
+import { createIoCContainer } from '../ioc/index';
 
 import type { ApiConfig } from '../types';
+
 export class HTTP {
-  logger: Logger;
+  static $inject = ['apiConfig','logger']
+  static $singleton = true;
+  logger: ILogger;
   apiConfig: ApiConfig;
 
-  constructor(apiConfig: ApiConfig) {
+  constructor(apiConfig: ApiConfig, logger: ILogger) {
     this.apiConfig = apiConfig;
-    this.logger = new Logger();
+    this.logger = logger;
   }
 
   async get(url: string) {
